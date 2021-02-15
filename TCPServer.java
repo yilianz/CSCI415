@@ -32,12 +32,12 @@ class TCPServer {
                 DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
 
                 // get the message from client
-              
-                clientSentence = inFromClient.nextLine();
+                
+                clientSentence =inFromClient.nextLine();
                 System.out.println("From Client:" + clientSentence);
             
                 // construct the response message and send it to client
-                serverSentence =  clientSentence.toUpperCase();  //change to uppercase 
+                serverSentence = "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n<html><head><title>YHBT.net</title></head><body>HAND</body></html>"; //clientSentence.toUpperCase();  //change to uppercase 
                 outToClient.writeBytes(serverSentence);
 
 

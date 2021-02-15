@@ -16,8 +16,8 @@ class TCPClient {
         Scanner inFromUser = new Scanner(System.in);
 
         // Create a socket which connect to Server (HOSTNAME, PORTNUM)
-        String Hostname = "localhost";
-        int Port = 1234;
+        String Hostname = "www.httpvshttps.com"; // try www.httpvshttps.com
+        int Port = 80;                      // try 80
         Socket clientSocket=null;
         
         try {
@@ -30,13 +30,17 @@ class TCPClient {
 
             
             //Read data from the user and sent it over the internet
-            String sentence = inFromUser.nextLine() + "\r\n";
+            String sentence = "GET / HTTP/1.1\r\nHost: www.httpvshttps.com\r\n\r\n";//inFromUser.nextLine() + "\r\n";
             //System.out.println("From Client: " + sentence);
             outToServer.writeBytes(sentence);
 
             //Read response from the server and display it on screen
             String modifiedSentence = inFromServer.nextLine();
             System.out.println("FROM SERVER: " + modifiedSentence);
+            while(inFromServer.hasNext()){
+                modifiedSentence = inFromServer.nextLine();
+            System.out.println("FROM SERVER: " + modifiedSentence);
+            }
             
 
             // Close the connection
