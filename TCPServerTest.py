@@ -28,7 +28,7 @@ while count < 10:
     message = connection.recv(1024)
     #get the file name
 
-    filename =....
+    #filename =....
 
     #open the file
     try:
