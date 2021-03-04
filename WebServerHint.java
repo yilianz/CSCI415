@@ -7,8 +7,12 @@
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
-class TCPServer {
+class WebServerHint{
 
     public static void main(String argv[]) throws Exception {
         String clientSentence = " ";
@@ -17,7 +21,7 @@ class TCPServer {
 
         // Create Server Socket
         try {
-            welcomeSocket= new ServerSocket(1234);
+            welcomeSocket= new ServerSocket(80);
 
             while (true) {
                 // create client socket, blocking if no incoming request.
@@ -41,17 +45,38 @@ class TCPServer {
                 System.out.println("File path: "+ temp[1]);
                 
                 // Get the file if the request is valid
-                // You need ignore the request for favicon.ico. 
+                //                if (temp[0]  .... )
+                
+                // You need to ignore the request for favicon.ico.
+                //                if (temp[1].equals("/favicon.ico")) ...
+                
+                // Otherwise get the name of the file -- temp[1] and send the file requested by client
+                // I will show an example which opens a pdf file.
+                try{
+                    Path inFilePath = Paths.get("testss.pdf");  // current directory
+    
+                    // read file into byte arrays (all in memory!!)
+                    byte[] buffer = Files.readAllBytes(inFilePath);   // read bytes to a buffer
 
-                // construct the response message and send it to client
-               // requestline = "HTTP/1.1 200 OK\r\n";
-              //  headlines1= "Content-Type: text/html\r\n"
-              //  headlines2= "Content-Length: .....\r\n"
-              //  endheadline ="\r\n"
-                // Read file and put the file as body
-             //   body ="<html><head><title>YHBT.net</title></head><body>HAND</body></html>"; //clientSentence.toUpperCase();  //change to uppercase 
-                outToClient.writeBytes(serverSentence);
+                     // construct the response message and send it to client
+                    String requestline = "HTTP/1.1 200 OK\r\n";
+                    String headlines1= "Content-Type: application/pdf\r\n";
+                    String headlines2= "Content-Length:"+buffer.length+"\r\n\r\n";
 
+                    // send the requestline and headlines 
+                    outToClient.writeBytes(requestline+headlines1+headlines2);
+
+                    // send the entity body  
+                    outToClient.write(buffer,0,buffer.length);
+                    outToClient.flush();
+
+                }catch(InvalidPathException e) {
+                    // send 404 request if the file is not found 
+                    // more codes need to be added here. 
+
+
+                    System.err.println( e.getMessage());
+                }
 
                 // close stream and socket
                 inFromClient.close();
