@@ -59,12 +59,12 @@ class WebServerHint{
                     byte[] buffer = Files.readAllBytes(inFilePath);   // read bytes to a buffer
 
                      // construct the response message and send it to client
-                    String requestline = "HTTP/1.1 200 OK\r\n";
+                    String statusline = "HTTP/1.1 200 OK\r\n";
                     String headlines1= "Content-Type: application/pdf\r\n";
                     String headlines2= "Content-Length:"+buffer.length+"\r\n\r\n";
 
-                    // send the requestline and headlines 
-                    outToClient.writeBytes(requestline+headlines1+headlines2);
+                    // send the statusline and headlines 
+                    outToClient.writeBytes(statusline+headlines1+headlines2);
 
                     // send the entity body  
                     outToClient.write(buffer,0,buffer.length);
