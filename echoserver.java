@@ -10,7 +10,7 @@ import java.net.*;
 
 public class echoserver {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
 
 		ServerSocket serverSocket = null; // descriptor of server
 		Socket clientSocket = null; // descriptor of client connection
