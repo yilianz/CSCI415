@@ -18,7 +18,7 @@ public class echoserver {
 		BufferedReader in = null; // read from socket -- not used here
 
 		/* create a socket */
-		int port = 2103;
+		int port = 4343;
 		try {
 			serverSocket = new ServerSocket(port);
 
@@ -29,7 +29,7 @@ public class echoserver {
 				try {
 					clientSocket = serverSocket.accept();
 				} catch (IOException e) {
-					System.out.println("Accept failed: 2103");
+					System.out.println("Accept failed:" + port);
 					System.exit(-1);
 				}
 
@@ -47,12 +47,12 @@ public class echoserver {
 				/* close client connection */
 				out.close();
 				in.close();
-				clientSocket.close();
+				clientSocket.close(); 
 
 			}
 
 		} catch (IOException e) {
-			System.out.println("Could not listen on port: 2103");
+			System.out.println("Could not listen on port: "+ port);
 			System.exit(-1);
 		}
 

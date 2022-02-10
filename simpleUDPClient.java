@@ -24,10 +24,10 @@ public class simpleUDPClient {
 
             //convert string to byte array
             byte[] buf = hellomessage.getBytes();
-            InetAddress address = InetAddress.getByName("172.17.137.160");  // get the ip address of the host.
+            InetAddress address = InetAddress.getByName("255.255.255.255");  // get the ip address of the host.
 
             //construct datagram packet
-            DatagramPacket packet = new DatagramPacket(buf, buf.length, address, 1327);
+            DatagramPacket packet = new DatagramPacket(buf, buf.length, address, 54234);
             
             
 
